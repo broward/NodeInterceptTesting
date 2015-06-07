@@ -9,6 +9,8 @@ During my mocha tests, I can substitute a interceptor method for an existing met
         assert.throws(
             function() {
                 var qil = new Qil('');
+                
+                // create intercept funciton
                 qil.two = function(arg) {
                     console.log('new two function throws error');
 
@@ -33,6 +35,8 @@ During my mocha tests, I can substitute a interceptor method for an existing met
 
     it("Test with injection, verify altered functionality", function(done) {
         var qil = new Qil('');
+        
+        // create intercept function
         qil.one = function(arg) {
             console.log('another new two function');
 
