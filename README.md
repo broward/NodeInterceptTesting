@@ -48,7 +48,7 @@ During my mocha tests, I can substitute a interceptor method for an existing met
         // run the injected function
         assert(qil.modify().one === 'X');
 
-        // verify it's been altered
+        // verify internal object is altered
         assert(qil.internal().one === 'X');
         done();
     }); 
