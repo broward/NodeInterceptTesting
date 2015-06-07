@@ -1,9 +1,9 @@
-My first OOP programming language was Delphi (object pascal) which was introduced in 1995 (same time as java) and supported what is now know as "lamba functions".  This is a simple testing mechanism I used with Delphi, adapted for node.js
+My first OOP programming language was Delphi (object pascal) which was introduced the same year as java (1995).  Delphi supported what is now know as "lamba functions" and this is a simple testing mechanism I used with Delphi, adapted for node.js.
 
-During my mocha tests, I can substitute a interceptor method for an existing method in the target object ("function two" is replaced by the "function intercept" in the diagram).
+During my mocha tests, I can substitute a interceptor method for an existing method in the target object ("function two" is replaced by the "function intercept" in the diagram). I can now do a couple of things within the intercept function:
 
 <br>
-1) I can now do a couple of things within the intercept function.  I can throw an error, to test error handling in function one, which was an area I was having trouble with in node.js.  
+1) I can throw an arbitrary error to test error handling in function one, for better code coverage.  
 
     it("Test with injection, force an error", function() {
         assert.throws(
@@ -29,7 +29,7 @@ During my mocha tests, I can substitute a interceptor method for an existing met
 
 <br>
 
-2) I can also alter the value of any object which passes through the intercept function.
+2) I can alter the value of any object which passes through the intercept function.
 
     it("Test with injection, verify altered functionality", function(done) {
         var qil = new Qil('');
