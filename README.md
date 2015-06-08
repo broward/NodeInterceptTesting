@@ -1,6 +1,6 @@
 My first OOP programming language was Delphi (object pascal) which was introduced the same year as java (1995).  Delphi supported what is now known as "lamba functions" and this is a simple testing mechanism I used with Delphi, adapted for node.js.
 
-During my mocha tests, I can substitute an interceptor method for an existing method in the target object ("function two" is replaced by the "function intercept" in the diagram). I can now do a couple of things within the intercept function:
+During my mocha tests, I can substitute an interceptor method for an existing method in the target object (in the diagram, "function intercept" replaces "function two"). I can now do a couple of things within the intercept function:
 
 <br>
 1) I can throw an arbitrary error to test error handling in function one, for better code coverage.  
