@@ -6,50 +6,46 @@ During my mocha tests, I can substitute an interceptor method for an existing me
 1) I can throw an arbitrary error to test error handling in function one, for better code coverage.  
 
     it("Test with injection, force an error", function() {
-        assert.throws(
-            function() {
-                var qil = new Qil('');
-                
-                // create intercept funciton
-                qil.two = function(arg) {
-                    console.log('new two function throws error');
+            var qil = new Qil('');
 
-                    // inject our error 
-                    throw new Error('my test error');
-                    return arg;
-                }
-
-                // run the injected function
-                assert(qil.one(1) === 1);
-            },
-            function(err) {
-                console.log('threw an error');
-                return true;
+            // inject our function
+            qil.two = function(arg) {
+                console.log('new two function throws error');
+                throw new Error('my test error');
+                return arg;
             }
-        );
-    });
+
+            assert.throws(
+                function() {
+                    // run injected function, should throw an error
+                    assert(qil.one(1) === 1);
+                },
+                function(err) {
+                    console.log('threw an error');
+                    return true;
+                }
+            );
+        });
 
 <br>
 
 2) I can alter the value of any object which passes through the intercept function.
 
     it("Test with injection, verify altered functionality", function(done) {
-        var qil = new Qil('');
-        
-        // create intercept function
-        qil.one = function(arg) {
-            console.log('another new two function');
+            var qil = new Qil('');
 
-            // alter the value of argument
-            arg.one = 'X';
-            return arg;
-        }
+            // inject our new function
+            qil.one = function(arg) {
+                console.log('another new one function');
+                arg.one = 'X';
+                return arg;
+            }
 
-        // run the injected function
-        assert(qil.modify().one === 'X');
+            // run the function
+            assert(qil.modify().one === 'X');
 
-        // verify internal object is altered
-        assert(qil.internal().one === 'X');
-        done();
-    }); 
+            // verify internal object was changed
+            assert(qil.internal().one === 'X');
+            done();
+        });
 
