@@ -104,10 +104,10 @@ describe("Interceptor Suite", function() {
             }
 
             // verify internal object was changed
-            assert(qil.s3().one === '1');
-
-            // verify it can still be changed
             assert(qil.s4().one === 'X');
+
+            // verify that it stays changed
+            assert(qil.s3().one === 'X');
             done();
         });
     });
