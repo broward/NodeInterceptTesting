@@ -11,7 +11,7 @@ describe("Interceptor Suite", function() {
 
         it("Verify original functionality", function(done) {
             var qil = new Qil('');
-            assert(qil.one(1) === 1);
+            assert(qil.s1(1) === 1);
             done();
         });
 
@@ -19,13 +19,13 @@ describe("Interceptor Suite", function() {
             var qil = new Qil('');
 
             // inject our empty function
-            qil.two = function(arg) {
+            qil.s2 = function(arg) {
                 console.log('new two function');
                 return arg;
             }
 
             // verify nothing has changed
-            assert(qil.one(1) === 1);
+            assert(qil.s1(1) === 1);
             done();
         });
 
@@ -33,14 +33,14 @@ describe("Interceptor Suite", function() {
             var qil = new Qil('');
 
             // inject our function
-            qil.two = function(arg) {
+            qil.s2 = function(arg) {
                 console.log('new two function changes argument');
                 arg = 5;
                 return arg;
             }
 
             // verify the argument was changed.
-            assert(qil.one(1) === 5);
+            assert(qil.s1(1) === 5);
             done();
         });
 
@@ -48,7 +48,7 @@ describe("Interceptor Suite", function() {
             var qil = new Qil('');
 
             // inject our function
-            qil.two = function(arg) {
+            qil.s2 = function(arg) {
                 console.log('new two function throws error');
                 throw new Error('my test error');
                 return arg;
@@ -57,7 +57,7 @@ describe("Interceptor Suite", function() {
             assert.throws(
                 function() {
                     // run injected function, should throw an error
-                    assert(qil.one(1) === 1);
+                    assert(qil.s1(1) === 1);
                 },
                 function(err) {
                     console.log('threw an error');
@@ -72,7 +72,7 @@ describe("Interceptor Suite", function() {
 
         it("Verify original value", function(done) {
             var qil = new Qil('');
-            assert(qil.internal().one === '1');
+            assert(qil.s3().one === '1');
             done();
         });
 
@@ -80,16 +80,16 @@ describe("Interceptor Suite", function() {
 
             // inject our new empty function
             var qil = new Qil('');
-            qil.one = function(arg) {
+            qil.s1 = function(arg) {
                 console.log('new one function');
                 return arg;
             }
 
             // run the function
-            assert(qil.modify().one === '2');
+            assert(qil.s3().one === '1');
 
             // verify internal object is unchanged
-            assert(qil.internal().one === '2');
+            assert(qil.s4().one === '1');
             done();
         });
 
@@ -97,17 +97,17 @@ describe("Interceptor Suite", function() {
             var qil = new Qil('');
 
             // inject our new function
-            qil.one = function(arg) {
+            qil.s1 = function(arg) {
                 console.log('another new one function');
                 arg.one = 'X';
                 return arg;
             }
 
-            // run the function
-            assert(qil.modify().one === 'X');
-
             // verify internal object was changed
-            assert(qil.internal().one === 'X');
+            assert(qil.s3().one === '1');
+
+            // verify it can still be changed
+            assert(qil.s4().one === 'X');
             done();
         });
     });
